@@ -1,0 +1,20 @@
+{
+  "S09.2": {
+    "score": 1,
+    "reviewer": "Codex independent evidence review",
+    "evidence": "impact_audit.xlsx / 核验方法：主、备方案分别说明候选窗口、班组峰值、上联互斥、前置间隔和截止时间，并列明保护作业、全部作业、GPU 分钟及窗口 ID 字典序的比较顺序。",
+    "reason": "方法说明覆盖约束可行性筛选、方案内作业去重、主备方案的目标比较顺序和最终决胜规则。"
+  },
+  "S09.3": {
+    "score": 1,
+    "reviewer": "Codex independent evidence review",
+    "evidence": "impact_audit.xlsx / 核验方法：主方案记录枚举 1,048,576 种、10,752 个可行解；备用方案记录枚举 125 种、24 个可行解，并给出最优目标和窗口元组。",
+    "reason": "完整有限候选空间枚举、可行解数量、最优目标和决胜元组构成可复核的全局最优性验证方法。排程本身的约束错误由其他考点单独计分。"
+  },
+  "O05.2": {
+    "score": 0,
+    "reviewer": "Codex independent evidence review",
+    "evidence": "change_brief.docx / 数据覆盖与执行复核：正文列明数据覆盖、排除数量及首因，并说明重叠分钟乘 GPU 数的核算方式。",
+    "reason": "正文说明了未纳入核算的数据和历史时间轴上的重叠算法，但没有明确说明该暴露量不代表已经发生的真实停机或训练损失，未完整满足本分项要求。"
+  }
+}

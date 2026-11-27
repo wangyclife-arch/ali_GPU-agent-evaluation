@@ -1,0 +1,26 @@
+{
+  "S09.2": {
+    "score": 1,
+    "reviewer": "评分人A",
+    "evidence": "impact_audit.xlsx / 核验方法 / base、fallback 第 2 列",
+    "reason": "说明可行性筛选、方案内按作业名去重与主备比较顺序。"
+  },
+  "S09.3": {
+    "score": 1,
+    "reviewer": "评分人A",
+    "evidence": "impact_audit.xlsx / 核验方法 / base、fallback 第 3 列",
+    "reason": "说明穷举全部获准组合并按目标字典序取唯一最优解。"
+  },
+  "O05.1": {
+    "score": 1,
+    "reviewer": "评分人A",
+    "evidence": "change_brief.docx / 审批建议 / 第 1 段",
+    "reason": "给出批准主排程的建议，并说明第三晚减员时启用备用排程。"
+  },
+  "O05.2": {
+    "score": 1,
+    "reviewer": "评分人A",
+    "evidence": "change_brief.docx / 数据覆盖与执行复核",
+    "reason": "交代排除 11,163 条记录及历史回放的适用边界。"
+  }
+}

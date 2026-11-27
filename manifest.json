@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "title": "Alibaba GPU Cluster Dataset 2023",
+    "publisher": "Alibaba Cloud",
+    "repository_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023",
+    "commit": "2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9",
+    "documentation_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023/blob/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/README.md",
+    "license_id": "Apache-2.0",
+    "license_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023/blob/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/LICENSE",
+    "citation": "Cao et al. (2024), Crux: GPU-Efficient Communication Scheduling for Deep Learning Training, ACM SIGCOMM 2024."
+  },
+  "files": [
+    {
+      "path": "inputs/job.csv",
+      "source_url": "https://raw.githubusercontent.com/alibaba/alibaba-lingjun-dataset-2023/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/job.csv",
+      "source_page_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023/blob/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/job.csv",
+      "downloaded_at": "2026-11-26T15:56:00.151+08:00",
+      "sha256": "803191f9d7aab8a03edfe0b58518ae4d6fa1707628cc1dd609ad115e2059ec54",
+      "size_bytes": 4760300,
+      "encoding": "UTF-8",
+      "rows_excluding_header": 5180,
+      "column_count": 130,
+      "consistent_row_width": true,
+      "description": "训练作业记录，包含作业标识、状态和生命周期时间。",
+      "key_fields_checked": [
+        "id",
+        "uid",
+        "job_name",
+        "kind",
+        "status",
+        "gmt_job_submitted",
+        "gmt_job_running",
+        "gmt_job_stopped",
+        "gmt_job_finished"
+      ],
+      "blank_counts_for_checked_fields": {
+        "id": 0,
+        "uid": 0,
+        "job_name": 0,
+        "kind": 0,
+        "status": 0,
+        "gmt_job_submitted": 39,
+        "gmt_job_running": 803,
+        "gmt_job_stopped": 3557,
+        "gmt_job_finished": 48
+      },
+      "unnamed_header_count": 98
+    },
+    {
+      "path": "inputs/worker.csv",
+      "source_url": "https://raw.githubusercontent.com/alibaba/alibaba-lingjun-dataset-2023/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/worker.csv",
+      "source_page_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023/blob/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/worker.csv",
+      "downloaded_at": "2026-11-26T15:56:13.225+08:00",
+      "sha256": "8e2ebefb1dee7cde01792e0c28c392fe35e340e13c079ce70462e81abc3d8fc0",
+      "size_bytes": 6781581,
+      "encoding": "UTF-8",
+      "rows_excluding_header": 23742,
+      "column_count": 9,
+      "consistent_row_width": true,
+      "description": "作业下的 worker 记录，包含匿名主机标识、运行时间和 RES 资源对象。",
+      "key_fields_checked": [
+        "id",
+        "job_name",
+        "worker_name",
+        "host_ip",
+        "gmt_created",
+        "gmt_pod_running",
+        "gmt_pod_finished",
+        "RES"
+      ],
+      "blank_counts_for_checked_fields": {
+        "id": 0,
+        "job_name": 0,
+        "worker_name": 0,
+        "host_ip": 469,
+        "gmt_created": 0,
+        "gmt_pod_running": 3942,
+        "gmt_pod_finished": 28,
+        "RES": 41
+      }
+    },
+    {
+      "path": "inputs/topo.csv",
+      "source_url": "https://raw.githubusercontent.com/alibaba/alibaba-lingjun-dataset-2023/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/topo.csv",
+      "source_page_url": "https://github.com/alibaba/alibaba-lingjun-dataset-2023/blob/2ad3fd1e2fd16222cc018827fb84f3a3ff220bb9/data/topo.csv",
+      "downloaded_at": "2026-11-26T15:56:18.146+08:00",
+      "sha256": "95b67f62c4ecb25fd1be816a96c5b10808c4604a83effd4a79d13461a05a3af6",
+      "size_bytes": 64002,
+      "encoding": "UTF-8",
+      "rows_excluding_header": 847,
+      "column_count": 4,
+      "consistent_row_width": true,
+      "description": "匿名主机与 DSW、PSW、ASW 三级交换机路径的映射。",
+      "key_fields_checked": [
+        "ip",
+        "DSW",
+        "PSW",
+        "ASW"
+      ],
+      "blank_counts_for_checked_fields": {
+        "ip": 0,
+        "DSW": 0,
+        "PSW": 0,
+        "ASW": 0
+      }
+    }
+  ],
+  "validation": {
+    "method": "按 UTF-8 严格解码并用 Python 标准库 CSV 解析器逐条检查。数据行数不含表头。SHA-256 按磁盘原始字节计算，文件保留下载时的字节。",
+    "joins": {
+      "job_key": "job.csv.job_name",
+      "worker_to_job_key": "worker.csv.job_name",
+      "topology_key": "topo.csv.ip",
+      "worker_to_topology_key": "worker.csv.host_ip",
+      "duplicate_job_name_keys": 0,
+      "duplicate_topology_ip_keys": 0,
+      "duplicate_worker_id_keys": 0,
+      "repeated_worker_job_name_worker_name_groups": 458,
+      "worker_rows_matching_job": 23183,
+      "worker_rows_with_job_name_missing_in_job_table": 559,
+      "worker_rows_matching_topology": 20493,
+      "worker_rows_with_nonempty_host_missing_in_topology": 2780,
+      "worker_rows_with_empty_host": 469,
+      "worker_rows_matching_both_tables": 20040
+    },
+    "topology": {
+      "host_count": 847,
+      "distinct_bare_asw_labels": 48,
+      "distinct_full_dsw_psw_asw_paths": 119,
+      "asw_labels_reused_across_parent_paths": 42
+    },
+    "timestamps": {
+      "source_format": "YYYY/M/D HH:MM",
+      "embedded_utc_offset": false,
+      "job_fields": {
+        "gmt_job_submitted": {
+          "parsed": 5141,
+          "blank": 39,
+          "unparsed": 0,
+          "earliest": "2023-07-15T00:47",
+          "latest": "2023-07-30T22:50"
+        },
+        "gmt_job_running": {
+          "parsed": 4377,
+          "blank": 803,
+          "unparsed": 0,
+          "earliest": "2023-07-05T15:18",
+          "latest": "2023-08-01T02:00"
+        },
+        "gmt_job_finished": {
+          "parsed": 5132,
+          "blank": 48,
+          "unparsed": 0,
+          "earliest": "2023-07-15T00:49",
+          "latest": "2023-08-07T03:01"
+        },
+        "gmt_job_stopped": {
+          "parsed": 1623,
+          "blank": 3557,
+          "unparsed": 0,
+          "earliest": "2023-07-15T02:23",
+          "latest": "2023-08-07T03:01"
+        }
+      },
+      "worker_fields": {
+        "gmt_created": {
+          "parsed": 23742,
+          "blank": 0,
+          "unparsed": 0,
+          "earliest": "2023-07-15T00:47",
+          "latest": "2023-07-30T22:51"
+        },
+        "gmt_pod_running": {
+          "parsed": 19800,
+          "blank": 3942,
+          "unparsed": 0,
+          "earliest": "2023-07-15T00:52",
+          "latest": "2023-07-30T22:53"
+        },
+        "gmt_pod_finished": {
+          "parsed": 23714,
+          "blank": 28,
+          "unparsed": 0,
+          "earliest": "2023-07-15T00:49",
+          "latest": "2023-08-07T03:01"
+        }
+      },
+      "job_running_to_finished": {
+        "positive_duration": 3423,
+        "missing_endpoint": 812,
+        "zero_duration": 945
+      },
+      "worker_running_to_finished": {
+        "missing_endpoint": 3962,
+        "positive_duration": 17310,
+        "zero_duration": 2470
+      }
+    },
+    "worker_resources": {
+      "valid_res_json_object_rows": 23701,
+      "blank_res_rows": 41,
+      "res_objects_without_nvidia_gpu_key": 6388,
+      "explicit_nvidia_gpu_count_histogram": {
+        "1": 3597,
+        "2": 257,
+        "3": 21,
+        "4": 368,
+        "6": 22,
+        "8": 13044,
+        "10": 1,
+        "32": 3
+      }
+    },
+    "linked_positive_gpu_coverage": {
+      "definition": "worker 两端关联均命中，gmt_pod_running 和 gmt_pod_finished 可解析且结束晚于开始，且 RES.nvidia.com/gpu 为正整数。此处为素材覆盖检查。",
+      "worker_rows": 12579,
+      "distinct_jobs": 2139,
+      "jobs_spanning_multiple_full_asw_paths": 991,
+      "full_asw_paths": 82
+    },
+    "notes": [
+      "ASW 名称跨上联路径复用。后续若按交换机统计，应先确认使用 DSW、PSW、ASW 组成的设备键。",
+      "源数据存在关联缺口、缺失资源值和空白时间。后续需在题面中明确纳入条件，保留被排除记录及原因。",
+      "源仓库 README 将观测描述为 2023 年 8 月的两周。CSV 中 worker 的 gmt_created 字段范围为 2023-07-15 00:47 至 2023-07-30 22:51。后续以文件内记录的时间轴为准，并在题面明确时间口径。"
+    ]
+  }
+}

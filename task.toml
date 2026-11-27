@@ -1,0 +1,174 @@
+schema_version = 2
+task_id = "gpu_maintenance_impact_audit"
+title = "GPU 集群维护排程与训练任务影响审计"
+category = "综合办公"
+instruction_file = "instruction.md"
+candidate_spec_file = "task.toml"
+input_files = ["inputs/job.csv", "inputs/worker.csv", "inputs/topo.csv"]
+
+[maintenance]
+window_duration_minutes = 60
+max_parallel_per_uplink = 1
+predecessor_gap_minutes = 30
+base_nightly_caps = [2, 2, 2]
+fallback_nightly_caps = [2, 2, 1]
+fallback_only_window = "W13"
+fallback_only_window_eligible_devices = ["D01", "D06", "D10"]
+# 班次按窗口开始日期划分。W13 属第三晚，结束时间跨至次日零点。
+
+[maintenance.predecessors]
+D03 = "D02"
+D05 = "D04"
+
+[maintenance.window_starts]
+W01 = "2023-07-27 20:00"
+W02 = "2023-07-27 20:30"
+W03 = "2023-07-27 21:30"
+W04 = "2023-07-27 22:00"
+W05 = "2023-07-28 20:00"
+W06 = "2023-07-28 20:30"
+W07 = "2023-07-28 21:30"
+W08 = "2023-07-28 22:00"
+W09 = "2023-07-29 20:00"
+W10 = "2023-07-29 20:30"
+W11 = "2023-07-29 21:30"
+W12 = "2023-07-29 22:00"
+W13 = "2023-07-29 23:00"
+
+# 主排程仅用常规候选。备用沿用常规候选，仅有资格的设备可增加 W13。
+[maintenance.devices]
+D01 = { path = "G6/P8/S17", regular_windows = ["W09", "W10", "W11", "W12"] }
+D02 = { path = "G6/P8/S18", regular_windows = ["W02", "W05", "W06", "W08"] }
+D03 = { path = "G6/P8/S23", regular_windows = ["W01", "W03", "W06", "W07"] }
+D04 = { path = "G6/P10/S13", regular_windows = ["W01", "W02", "W05", "W06"] }
+D05 = { path = "G6/P10/S14", regular_windows = ["W03", "W04", "W07", "W08"] }
+D06 = { path = "G6/P10/S17", regular_windows = ["W09", "W10", "W11", "W12"] }
+D07 = { path = "G6/P10/S47", regular_windows = ["W02", "W04", "W05", "W08"] }
+D08 = { path = "G6/P12/S8", regular_windows = ["W01", "W03", "W06", "W07"] }
+D09 = { path = "G6/P12/S14", regular_windows = ["W02", "W04", "W05", "W07"] }
+D10 = { path = "G6/P12/S23", regular_windows = ["W09", "W10", "W11", "W12"] }
+
+[worker_audit]
+included_code = "OK"
+exclusion_order = ["NO_JOB", "NO_HOST", "NO_TOPO", "BAD_TIME", "NONPOSITIVE_TIME", "BAD_RES", "NO_GPU_KEY", "BAD_GPU"]
+
+[worker_audit.reason_labels]
+NO_JOB = "作业无法关联"
+NO_HOST = "主机为空"
+NO_TOPO = "主机无法匹配拓扑"
+BAD_TIME = "起止时间缺失或不可解析"
+NONPOSITIVE_TIME = "时长非正"
+BAD_RES = "RES 缺失或不是有效 JSON 对象"
+NO_GPU_KEY = "缺少 nvidia.com/gpu"
+BAD_GPU = "GPU 数不是正整数"
+OK = "进入可核算范围"
+
+[completion]
+output_directory = "outputs/"
+deliverable_count = 3
+require_readable_files = true
+require_cross_file_consistency = true
+require_globally_optimal_schedules = true
+base_latest_end = "2023-07-29 23:00"
+fallback_latest_end = "2023-07-30 00:00"
+
+[[deliverables]]
+path = "outputs/impact_audit.xlsx"
+format = "xlsx"
+
+[[deliverables]]
+path = "outputs/maintenance_schedule.csv"
+format = "csv"
+encoding = "UTF-8"
+data_rows = 20
+scenario_order = ["base", "fallback"]
+row_order_within_scenario = "device_id ascending"
+timestamp_format = "YYYY-MM-DD HH:MM"
+columns = ["scenario", "device_id", "dsw", "psw", "asw", "window_id", "start_time", "end_time", "protected_jobs", "affected_jobs", "gpu_minutes", "changed_from_base"]
+# changed_from_base 用 0/1。主排程为 0，备用按同设备窗口 ID 是否变化标记。
+
+[[deliverables]]
+path = "outputs/change_brief.docx"
+format = "docx"
+max_pages = 2
+
+[evidence]
+workbook_header_max_row = 20
+brief_headings = ["审批建议", "主备方案影响", "维护窗口明细", "数据覆盖与执行复核"]
+brief_window_format = "Wxx MM/DD HH:MM–HH:MM"
+brief_cross_day_end_format = "MM/DD HH:MM"
+excel_scenario_labels = ["base", "fallback", "主排程", "备用排程"]
+word_scenario_labels = ["主排程", "备用排程"]
+# Excel 必需表头按列序连续排列，数据连续置于表头之后。可在必需列右侧加说明列，版式自定。
+# 标记用 0/1。逐条核验保留每个源 worker ID，无法确定的归属、时间或 GPU 值留空。汇总覆盖实际出现的排除原因和 OK。
+# 方案汇总、约束复核、核验方法覆盖主备两方案。核验方法说明可行性筛选、作业去重、比较顺序及最优性验证。
+# 命中证据为两套选中方案的逐 worker 明细。Word 维护窗口明细每台设备一行，变更标记与备用 CSV 一致。
+
+[evidence.constraint_checks]
+NIGHT_1_PEAK = "第一晚班组峰值"
+NIGHT_2_PEAK = "第二晚班组峰值"
+NIGHT_3_PEAK = "第三晚班组峰值"
+D02_D03_GAP = "D02 结束到 D03 启动的分钟数"
+D04_D05_GAP = "D04 结束到 D05 启动的分钟数"
+WINDOW_VIOLATIONS = "获准窗口违规数"
+UPLINK_OVERLAPS = "同上联重叠对数"
+DEVICE_COVERAGE_ERRORS = "缺少或重复维护设备数"
+
+[[evidence.xlsx_tables]]
+id = "summaries"
+sheet = "方案汇总"
+columns = ["方案", "受影响保护作业", "受影响作业总数", "暴露 GPU·分钟", "更换窗口设备"]
+optional_columns = ["可行组合"]
+key = ["方案"]
+
+[[evidence.xlsx_tables]]
+id = "schedule"
+sheet = "排程明细"
+columns = ["方案", "设备", "DSW", "PSW", "ASW", "窗口", "维护起始", "维护结束", "保护作业", "受影响作业", "GPU·分钟", "更换窗口"]
+key = ["方案", "设备"]
+
+[[evidence.xlsx_tables]]
+id = "checks"
+sheet = "约束复核"
+columns = ["方案", "检查键", "约束检查", "观测值", "阈值", "结果"]
+key = ["方案", "检查键"]
+
+[[evidence.xlsx_tables]]
+id = "candidates"
+sheet = "候选影响"
+columns = ["设备", "设备全路径", "窗口", "维护起始", "维护结束", "主排程获准", "备用排程获准", "保护作业", "受影响作业", "GPU·分钟"]
+key = ["设备全路径", "窗口"]
+
+[[evidence.xlsx_tables]]
+id = "evidence"
+sheet = "命中证据"
+columns = ["方案", "设备", "设备全路径", "窗口", "worker ID", "作业名", "保护标记", "worker 起始", "worker 结束", "重叠起始", "重叠结束", "重叠分钟", "GPU 数", "GPU·分钟"]
+key = ["方案", "设备全路径", "窗口", "worker ID"]
+
+[[evidence.xlsx_tables]]
+id = "reasons"
+sheet = "核验汇总"
+columns = ["原因码", "说明", "worker 记录数"]
+key = ["原因码"]
+
+[[evidence.xlsx_tables]]
+id = "audit"
+sheet = "逐条核验"
+columns = ["worker ID", "作业名", "设备全路径", "原始运行起始", "原始运行结束", "保护标记", "GPU 数", "原因码", "核验结果", "host_ip", "纳入标记"]
+key = ["worker ID"]
+
+[[evidence.xlsx_tables]]
+id = "method"
+sheet = "核验方法"
+columns = ["方案", "可行性筛选", "目标顺序与决胜", "最优性验证"]
+key = ["方案"]
+
+[[evidence.docx_tables]]
+id = "brief_metrics"
+columns = ["方案", "受影响保护作业", "受影响作业总数", "暴露 GPU·分钟", "更换窗口设备"]
+key = ["方案"]
+
+[[evidence.docx_tables]]
+id = "brief_schedule"
+columns = ["设备", "交换机路径", "主排程", "备用排程", "变更"]
+key = ["设备"]

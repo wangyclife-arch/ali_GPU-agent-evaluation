@@ -1,0 +1,932 @@
+{
+  "schema_version": 2,
+  "task_id": "gpu_maintenance_impact_audit",
+  "title": "GPU 集群维护排程与训练任务影响审计 评分标准",
+  "visibility": "grader_only",
+  "criteria_count": 30,
+  "total_points": 100,
+  "reference": {
+    "instruction": "instruction.md",
+    "task_config": "task.toml",
+    "input_manifest": "manifest.json",
+    "solver": "reference_code/solve.py",
+    "workbook": "reference_answer/impact_audit.xlsx",
+    "schedule": "reference_answer/maintenance_schedule.csv",
+    "brief": "reference_answer/change_brief.docx"
+  },
+  "grading_rules": {
+    "scope": "按冻结的原始数据、instruction.md 和随题的规则附表 task.toml 评分。文件路径、CSV 合同、Excel 表名和必需表头、Word 核验表及页数以这两份题面文件为准。表格版式、公式、额外说明及算法由作者决定。结构不符时仍核验可确定的业务证据，读取器无法定位但可人工取证的项先送复核。",
+    "evidence": "逐模型单独评分。记录命中或扣分的文件位置、场景、设备窗口或 worker ID，以及实得分、应有值和差异。证据缺失时，该分项记 0；评分环境无法读取或核验时先记待复核，处理后再计算可用于判定的总分。",
+    "schedule_evidence": "以提交的维护排程 CSV 为首选。CSV 不可用时，明确列出了两套排程的工作簿可为业务计算和排程项提供证据，不补给 CSV 专属分。某方案无法辨识时，依赖其完整排程的约束与目标分项记 0。",
+    "timestamp_reconciliation": "仅在 CSV 某方案出现单个起止字段不符、对应方案与设备全路径及窗口 ID 唯一明确，而且至少另一份交付物明示了该设备对应的完整标准时段、其余证据未表明另有安排时，标为孤立抄录错误。记录 CSV 原值、佐证位置及题面标准值。影响核算、约束和最优性统一按已确认的窗口复核，O06 也用该窗口核对 Word。O07 保留原值并扣时间一致性分，O02 仍只查 CSV 时间格式。若设备或窗口本身错误、存在多处时间不符，或证据不能确认实际安排，按提交证据判断，不自行修复排程。",
+    "follow_through": "I04–I07、O03 按实际提交且可辨识的排程重算，合法但非最优的排程仍可获得相应计算分。S07、S08 以提交的可行主排程作基准。数据正确性、可行性、最优性和跨文件一致性分别评分，无全局限分或额外罚分。",
+    "numeric": "计数和 GPU·分钟按整数精确核对。整数或等价数字显示均可；CSV 明确规定的字段、时间格式及 0/1 标记按题面验收。未触发的异常类别不必单列，提交的零计数须准确。",
+    "binary": "该分项全部条件满足得其满分，否则 0。",
+    "ratio": "将正确单位数除以期望单位数与提交单位数中的较大者，再乘分项满分。按本条定义的单位和键对齐，一个单位最多匹配一次。缺项、重复和无依据的额外项计入差异。期望为空时，能证明零结果并未多报则该分项满分。对于引用已提交排程的考点，只核对能辨识的行，但缺少所需方案或设备的对应单位仍不得分。",
+    "macro_recall": "按分项指定的固定源数据类别单独求正确比例，分母为各类别的参考记录数。一个原始 ID 最多匹配一次，缺漏或重复视为该 ID 未正确分类。对各类别的比例取等权平均，再乘分项满分。",
+    "tiers": "逐项按规则列出的档位择一，不对同一分项重复加分。",
+    "precision": "各分项按其规则计分，每条考点合计四舍五入至小数点后两位，最终总分为各考点实得分之和。"
+  },
+  "groups": [
+    {
+      "id": "d",
+      "name": "数据关联与排除",
+      "points": 20,
+      "count": 7
+    },
+    {
+      "id": "i",
+      "name": "影响核算与去重",
+      "points": 25,
+      "count": 7
+    },
+    {
+      "id": "s",
+      "name": "排程约束与最优性",
+      "points": 37,
+      "count": 9
+    },
+    {
+      "id": "o",
+      "name": "文件合规与审批沟通",
+      "points": 18,
+      "count": 7
+    }
+  ],
+  "criteria": [
+    {
+      "id": "D01",
+      "group": "d",
+      "points": 3,
+      "name": "逐条核验覆盖原始 worker",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "每条 worker 以 id 为准，保留同作业内重名的记录；交付逐条核验。"
+      },
+      "evidence": [
+        "工作簿逐条核验区",
+        "inputs/worker.csv"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "比较原始 worker.id 与核验清单的 ID。一个原始 ID 有且只有一条可辨识的核验记录才算命中；漏报、重复和新增 ID 纳入差异。"
+        }
+      ],
+      "expected": {
+        "unique_worker_rows": 23742
+      }
+    },
+    {
+      "id": "D02",
+      "group": "d",
+      "points": 3,
+      "name": "准确关联作业并标识优先保护",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "按 job_name 关联，只有 priority 为 9 的作业属于保护作业。"
+      },
+      "evidence": [
+        "工作簿逐条核验、命中证据及可回查的保护作业标识",
+        "inputs/job.csv",
+        "inputs/worker.csv"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "检查集合固定为原始 worker 中 job_name 可精确匹配作业表的记录。按 worker.id 核对归属作业是否正确。本分项只判归属，无法关联时的排除和原因归 D06。"
+        },
+        {
+          "points": 0.5,
+          "mode": "ratio",
+          "rule": "按源数据中可关联作业的 worker ID 逐条核对逐条核验表的保护标记，仅 priority=9 的作业标为 1。"
+        },
+        {
+          "points": 0.5,
+          "mode": "ratio",
+          "rule": "核对命中证据中可关联作业的保护标识。允许由明确的保护名单或可追溯的等价字段体现；同一作业的标识不应随窗口变化。"
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "group": "d",
+      "points": 3,
+      "name": "精确关联匿名主机及完整设备路径",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "host_ip 与 ip 精确匹配，设备按 DSW/PSW/ASW 全路径区分。"
+      },
+      "evidence": [
+        "工作簿核验或命中证据中的设备归属",
+        "inputs/worker.csv",
+        "inputs/topo.csv"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "检查集合固定为源表可同时关联作业和拓扑的 worker。按 worker.id 对照逐条核验表的 host_ip 和 DSW/PSW/ASW 全路径，两者均与原始数据匹配才计命中。主机为空、拓扑未匹配的排除判断归 D06。"
+        }
+      ],
+      "expected": {
+        "source_rows_with_both_joins": 20040,
+        "important_collision": [
+          "G6/P8/S17",
+          "G6/P10/S17"
+        ]
+      }
+    },
+    {
+      "id": "D04",
+      "group": "d",
+      "points": 2,
+      "name": "采用源 worker 运行区间",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "起止取 gmt_pod_running 和 gmt_pod_finished；使用源数据无时区的分钟时间轴。"
+      },
+      "evidence": [
+        "工作簿逐条核验与命中证据",
+        "inputs/worker.csv"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "检查集合固定为按题面从原始数据复算应纳入影响核算的 worker.id，不随模型排除或披露哪些记录而变。逐条核对两个源运行端点，接受可回查的等价分钟时间显示。缺失端点、时长非正的排除判断归 D06。"
+        }
+      ],
+      "expected": {
+        "source_rows_eligible_for_impact": 12579
+      }
+    },
+    {
+      "id": "D05",
+      "group": "d",
+      "points": 3,
+      "name": "从 RES 读取实际 GPU 数",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "从 RES 的 nvidia.com/gpu 取得正整数，接受 JSON 整数及十进制数字字符串。"
+      },
+      "evidence": [
+        "工作簿逐条核验或可回查的纳入记录",
+        "inputs/worker.csv RES"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "以参考规则判定纳入的 worker.id 为检查单位，核对 GPU 数与输入中的合法值相同。可从明细字段或关联证据回查。直填统一 GPU 数、用 CPU 值替代或把设备额定卡数当成记录的 GPU 数为错。"
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "group": "d",
+      "points": 4,
+      "name": "按规定顺序给出首个排除原因",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "按八个条件依次检查，仅保留首个适用原因并排除该记录。"
+      },
+      "evidence": [
+        "工作簿逐条核验表",
+        "原始三个 CSV",
+        "参考工作簿逐条核验"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "对所有原始 worker.id 检查纳入标记和首个适用原因，按题面规定原因码对账。缺项、重复和不存在的额外 ID 计入差异。"
+        },
+        {
+          "points": 2,
+          "mode": "macro_recall",
+          "rule": "对源数据中实际出现的六个排除类别等权：作业无法关联、主机为空、主机无法匹配拓扑、起止缺失或不可解析、时长非正、缺少 GPU 键。每类用首因归对的源记录数除以该类参考记录数。源数据中未作为首因出现的类别不参加平均。"
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "group": "d",
+      "points": 2,
+      "name": "排除原因汇总可与逐条核验对账",
+      "instruction": {
+        "section": "核算依据",
+        "requirement": "交付排除原因汇总。"
+      },
+      "evidence": [
+        "工作簿核验汇总",
+        "参考工作簿核验汇总"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "逐类别比较首因计数，且汇总可与逐条核验对账。无记录的原因可隐含为零；错误类别、重复汇总增加差异。若呈现纳入数或总数，应准确。"
+        }
+      ],
+      "expected": {
+        "reason_counts": {
+          "NO_JOB": 559,
+          "NO_HOST": 448,
+          "NO_TOPO": 2695,
+          "BAD_TIME": 2793,
+          "NONPOSITIVE_TIME": 2054,
+          "BAD_RES": 0,
+          "NO_GPU_KEY": 2614,
+          "BAD_GPU": 0,
+          "OK": 12579
+        },
+        "source_rows": 23742,
+        "excluded_rows": 11163
+      }
+    },
+    {
+      "id": "I01",
+      "group": "i",
+      "points": 3,
+      "name": "完整列举所有获准设备窗口组合",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "交付全部获准设备与窗口组合。W13 仅为三台指定设备的备用候选。"
+      },
+      "evidence": [
+        "工作簿候选影响",
+        "task.toml 的维护窗口与设备清单"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "用设备全路径、窗口 ID 对齐候选行，核对区间和适用方案。常规候选可共用一行或分别列主备；W13 仅属于 D01、D06、D10 的备用集合。缺项和无资格项计差异。"
+        }
+      ],
+      "expected": {
+        "base_pairs": 40,
+        "fallback_pairs": 43,
+        "additional_fallback_pairs": [
+          "D01/W13",
+          "D06/W13",
+          "D10/W13"
+        ]
+      }
+    },
+    {
+      "id": "I02",
+      "group": "i",
+      "points": 4,
+      "name": "逐候选窗口准确去重作业",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "单个设备窗口内按 job_name 去重，分别统计保护作业和全部受影响作业。"
+      },
+      "evidence": [
+        "工作簿候选影响",
+        "参考工作簿候选影响"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "对每个获准的设备窗口键，保护作业去重数与源数据复算相符。"
+        },
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "相同检查集合内，全部受影响作业去重数与源数据复算相符。"
+        }
+      ],
+      "expected": {
+        "example": {
+          "pair": "D02/W05",
+          "protected_jobs": 1,
+          "affected_jobs": 3
+        }
+      }
+    },
+    {
+      "id": "I03",
+      "group": "i",
+      "points": 4,
+      "name": "逐候选窗口正确核算 GPU 暴露量",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "有正时长重叠的 worker 按重叠分钟乘 GPU 数，以整数累计。"
+      },
+      "evidence": [
+        "工作簿候选影响",
+        "参考工作簿候选影响"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "对下面 4 个存在不足 60 分钟重叠的组合以外的 39 个获准设备窗口组合，按原始 worker.id 的实际重叠复算整数 GPU·分钟，逐组合核对。"
+        },
+        {
+          "points": 1,
+          "mode": "ratio",
+          "rule": "单独核对 D03/W03、D05/W07、D05/W08、D07/W08 的候选暴露总量。四个组合来自题面已要求的局部影响表，可检出一律按满小时计算的错误。此项只核对组合总量，不要求补交未选窗口的逐 worker 证据。"
+        }
+      ],
+      "expected": {
+        "example": {
+          "pair": "D02/W05",
+          "gpu_minutes": 1800
+        },
+        "partial_overlap_gpu_minutes": {
+          "D03/W03": 16,
+          "D05/W07": 1491,
+          "D05/W08": 1494,
+          "D07/W08": 2015
+        }
+      }
+    },
+    {
+      "id": "I04",
+      "group": "i",
+      "points": 4,
+      "name": "选中排程仅列正重叠的 worker",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "设备匹配且左闭右开有正时长重叠才命中；提交两套排程的逐 worker 证据。"
+      },
+      "evidence": [
+        "工作簿命中证据",
+        "提交的主备设备窗口",
+        "原始文件复算"
+      ],
+      "scoring": [
+        {
+          "points": 4,
+          "mode": "ratio",
+          "rule": "以提交的可辨识设备窗口复算期望明细。按方案、设备全路径、窗口 ID、worker.id 对齐，检查身份与 job_name。漏命中、重复、只在端点相接或来自错误路径的记录计差异。"
+        }
+      ],
+      "expected": {
+        "reference_plan_evidence_rows": {
+          "base": 27,
+          "fallback": 27
+        }
+      }
+    },
+    {
+      "id": "I05",
+      "group": "i",
+      "points": 4,
+      "name": "重叠证据可复算到整数 GPU·分钟",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "证据含源 worker 起止、重叠区间与分钟、GPU 数和暴露量。"
+      },
+      "evidence": [
+        "工作簿命中证据",
+        "提交的设备窗口与源 worker 区间"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "对期望命中记录核对源 worker 起止和重叠起点、终点、正重叠分钟。按维护与 worker 区间的 max 起点和 min 终点复算重叠。"
+        },
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "对期望命中记录核对 GPU 数和该 worker 的暴露 GPU·分钟；按原始 GPU 数和真实重叠分钟乘积校验。"
+        }
+      ]
+    },
+    {
+      "id": "I06",
+      "group": "i",
+      "points": 3,
+      "name": "整套排程跨窗口按作业去重",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "分别对方案内保护作业与全部受影响作业按 job_name 去重。"
+      },
+      "evidence": [
+        "工作簿方案级汇总",
+        "提交的主备排程及源数据复算"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "四个单位为两方案各自的保护作业数与全部受影响作业数。逐个用提交排程求全窗口作业并集，对照实际值；把窗口级人数相加不得算对。"
+        }
+      ],
+      "expected": {
+        "reference_plan_counts": {
+          "base": [
+            3,
+            19
+          ],
+          "fallback": [
+            3,
+            19
+          ]
+        }
+      }
+    },
+    {
+      "id": "I07",
+      "group": "i",
+      "points": 3,
+      "name": "整套排程正确累计 GPU·分钟",
+      "instruction": {
+        "section": "核算依据与交付文件",
+        "requirement": "方案级 GPU·分钟按命中 worker 累计，以整数比较。"
+      },
+      "evidence": [
+        "工作簿方案级汇总",
+        "提交的主备排程及源数据复算"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "两个单位为两方案的 GPU·分钟总量。以提交的设备窗口从原始数据复算，按不同命中 worker 的实际重叠累计。将 GPU·分钟与 GPU·小时混为一谈或按作业去重 GPU 用量均为错。"
+        }
+      ],
+      "expected": {
+        "reference_plan_gpu_minutes": {
+          "base": 12600,
+          "fallback": 12600
+        }
+      }
+    },
+    {
+      "id": "S01",
+      "group": "s",
+      "points": 4,
+      "name": "主备设备覆盖和窗口资格合规",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "每台设备一次且占满获准窗口。主排程仅常规候选，备用 W13 有资格限制，遵守截止时间。"
+      },
+      "evidence": [
+        "维护排程 CSV 或可验证的工作簿排程",
+        "task.toml 的设备、窗口与截止条件"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "binary",
+          "rule": "主排程覆盖 D01 至 D10 各一次，设备全路径准确，窗口均为该设备的常规候选，起止与完整窗口一致，未晚于 2023-07-29 23:00。仅对 timestamp_reconciliation 确认的孤立抄录使用已确认的时段。"
+        },
+        {
+          "points": 2,
+          "mode": "binary",
+          "rule": "备用排程覆盖 D01 至 D10 各一次，设备全路径准确，窗口在对应设备的获准集合中，W13 仅为 D01、D06、D10 可用。起止与完整窗口一致，未晚于 2023-07-30 00:00。仅对 timestamp_reconciliation 确认的孤立抄录使用已确认的时段。"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "group": "s",
+      "points": 4,
+      "name": "按实际时段遵守维护班组并发上限",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "主排程每晚最多 2 台。备用前两晚最多 2 台，第三晚含 W13 最多 1 台。"
+      },
+      "evidence": [
+        "维护排程 CSV 或工作簿排程",
+        "按分钟或事件端点复核"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "binary",
+          "rule": "主排程所有实际时刻并发不超过 2，包含不同窗口 ID 时间重叠的情况。"
+        },
+        {
+          "points": 2,
+          "mode": "binary",
+          "rule": "备用前两晚并发不超过 2，第三晚并发不超过 1，W13 归第三晚。按左闭右开统计。"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "group": "s",
+      "points": 3,
+      "name": "同上联组维护互斥",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "同一 DSW/PSW 上联组任一时刻最多维护一台设备。"
+      },
+      "evidence": [
+        "维护排程 CSV 或工作簿排程",
+        "task.toml 的设备全路径"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "两个单位为主、备用排程。每个方案用 DSW/PSW 检查本组所有设备对的实际区间，全部无正重叠才算该单位正确。只比相同窗口 ID 或只比 ASW 短名不能证明通过。"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "group": "s",
+      "points": 3,
+      "name": "前置设备结束后保留足够间隔",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "D03 在 D02 结束至少 30 分钟后启动；D05 同样依赖 D04。"
+      },
+      "evidence": [
+        "维护排程 CSV 或工作簿排程",
+        "设备窗口起止"
+      ],
+      "scoring": [
+        {
+          "points": 3,
+          "mode": "ratio",
+          "rule": "四个单位为两方案各自的两个依赖。分别用后项实际开始减前项结束，至少 30 分钟即通过，等于 30 分钟有效。"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "group": "s",
+      "points": 7,
+      "name": "主排程达到三级业务目标全局最优",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "主排程按保护作业数、全部作业数、暴露 GPU·分钟依次最小化。"
+      },
+      "evidence": [
+        "提交的主排程",
+        "由原始文件复算该排程的目标值"
+      ],
+      "scoring": [
+        {
+          "points": 7,
+          "mode": "tiers",
+          "rule": "仅对可行主排程按正确的最长目标前缀计分。首项未达最优为 0；首项达最优为 3；前两项达最优为 5；三项均达最优为 7。比较复算值，汇报数字恰好等于参考值不构成证据。"
+        }
+      ],
+      "expected": {
+        "lexicographic_objective": [
+          3,
+          19,
+          12600
+        ]
+      }
+    },
+    {
+      "id": "S06",
+      "group": "s",
+      "points": 2,
+      "name": "主排程按窗口字典序完成决胜",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "指标仍相等时，按 D01 至 D10 顺序取窗口 ID 序列字典序最小。"
+      },
+      "evidence": [
+        "提交的主排程序列",
+        "参考求解脚本"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "binary",
+          "rule": "主排程可行且三级目标最优，同时窗口序列与字典序最小解相同。若目标值相同但窗口序列不是规范解，此项为 0，不回扣 S05。"
+        }
+      ],
+      "expected": {
+        "device_order": "D01 through D10",
+        "window_sequence": [
+          "W09",
+          "W05",
+          "W07",
+          "W01",
+          "W03",
+          "W09",
+          "W05",
+          "W01",
+          "W07",
+          "W11"
+        ]
+      }
+    },
+    {
+      "id": "S07",
+      "group": "s",
+      "points": 5,
+      "name": "备用排程优先最少变更",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "锁定主排程，优先最小化更换窗口 ID 的设备数。"
+      },
+      "evidence": [
+        "提交的两套排程",
+        "按固定主排程重算全部可行备用方案"
+      ],
+      "scoring": [
+        {
+          "points": 5,
+          "mode": "tiers",
+          "rule": "仅在提交的两套排程均可行时比较。以其提交的主排程为固定基准，按设备统计改动的窗口 ID。达到该基准最少改动给 5；仅多 1 台给 2；其余 0。主排程的最优性另在 S05/S06 评定。"
+        }
+      ],
+      "expected": {
+        "minimum_changes_for_reference_base": 1
+      }
+    },
+    {
+      "id": "S08",
+      "group": "s",
+      "points": 5,
+      "name": "备用排程影响目标与最终决胜",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "备用同改动数时按三项影响依次比较，最后按窗口 ID 序列决胜。"
+      },
+      "evidence": [
+        "提交的主备排程",
+        "固定主排程后的备用可行集"
+      ],
+      "scoring": [
+        {
+          "points": 5,
+          "mode": "tiers",
+          "rule": "仅对可行的主备排程评分。固定提交的主排程，并在具有同样改动数的可行备用方案中比较，以避免重复扣 S07。保护作业最优得 1；前两项最优得 2；前三项最优得 3；前三项最优且字典序最小得 5；首项未达最优为 0。"
+        }
+      ],
+      "expected": {
+        "reference_fallback_objective": [
+          1,
+          3,
+          19,
+          12600
+        ],
+        "window_sequence_for_reference_base": [
+          "W09",
+          "W05",
+          "W07",
+          "W01",
+          "W03",
+          "W13",
+          "W05",
+          "W01",
+          "W07",
+          "W11"
+        ]
+      }
+    },
+    {
+      "id": "S09",
+      "group": "s",
+      "points": 4,
+      "name": "可行性和最优性验证有业务证据",
+      "instruction": {
+        "section": "维护窗口",
+        "requirement": "工作簿报告设备和窗口资格、每晚上限、同上联互斥、前置间隔，并说明最优性核验方法。"
+      },
+      "evidence": [
+        "工作簿约束复核与方案汇总或方法区"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "两个单位为两方案各自的可复核检查记录。每个方案须给出正确的设备覆盖和窗口资格、实际班组并发峰值、同上联互斥及两个前置间隔。陈述检查结论也须与排程相符。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "核验方法表说明如何从候选窗口和业务约束筛出可行集，并说明方案内作业去重和主备不同的比较顺序。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "给出可说明为何无更优解的方法，如全量枚举、可靠剪枝的搜索或精确求解及最优状态。接受等价方法，无须特定软件、代码文件或报告可行组合数量。"
+        }
+      ],
+      "expected": {
+        "diagnostic_feasible_combinations": {
+          "base": 10752,
+          "fallback": 5376
+        }
+      }
+    },
+    {
+      "id": "O01",
+      "group": "o",
+      "points": 3,
+      "name": "交付三种可打开的指定文件",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "在 outputs/ 下提交指定名称的三份可打开文件。"
+      },
+      "evidence": [
+        "被测交付目录"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "outputs/impact_audit.xlsx 路径和扩展名准确，工作簿可打开并具备题面规定的核验表与必需表头。结构错误单独记录，可人工定位的业务内容仍按对应考点评分。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "outputs/maintenance_schedule.csv 路径和扩展名准确，能识别为可读 CSV。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "outputs/change_brief.docx 路径和扩展名准确，可作为 Word 文档打开，且具备题面列明的标题和两张核验表。指标表使用配置指定的中文方案标签。可定位的业务内容仍按对应考点评分。"
+        }
+      ]
+    },
+    {
+      "id": "O02",
+      "group": "o",
+      "points": 4,
+      "name": "排程 CSV 满足机器读取合同",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "UTF-8、固定列序、表头外 20 条数据行，主备顺序与时间格式符合题面。"
+      },
+      "evidence": [
+        "outputs/maintenance_schedule.csv",
+        "task.toml 指定 CSV 合同"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "按 UTF-8 解码成功且表头字段拼写和顺序与 task.toml 一致。接受 UTF-8 BOM。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "表头外恰好 20 条数据行，字段数量与表头一致。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "base 在 fallback 前，场景标签符合题面，各按设备编号升序。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "所有 start_time 和 end_time 都是有效日期时间且严格为 YYYY-MM-DD HH:MM。该项只查格式。窗口资格见 S01，按确认规则识别出的孤立抄录在 O07 核对。"
+        }
+      ]
+    },
+    {
+      "id": "O03",
+      "group": "o",
+      "points": 3,
+      "name": "排程 CSV 写入正确窗口指标及变更标记",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "CSV 三项影响字段按本行设备窗口核算，变更标记 0 或 1 且主排程为 0。"
+      },
+      "evidence": [
+        "outputs/maintenance_schedule.csv",
+        "提交的主备排程与原始数据"
+      ],
+      "scoring": [
+        {
+          "points": 2,
+          "mode": "ratio",
+          "rule": "对每行可辨识的方案、设备、窗口，核对 protected_jobs、affected_jobs、gpu_minutes 三个局部值，每行三值全对才计命中。"
+        },
+        {
+          "points": 1,
+          "mode": "ratio",
+          "rule": "每个排程行检查 changed_from_base。主排程为 0，备用按同设备相对主排程的窗口 ID 变化给 0 或 1。"
+        }
+      ]
+    },
+    {
+      "id": "O04",
+      "group": "o",
+      "points": 1,
+      "name": "审批简报不超过两页",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "Word 审批简报最多 2 页。"
+      },
+      "evidence": [
+        "outputs/change_brief.docx 在固定评测环境中的渲染页数"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "可读的 Word 正文包含在最多两页内。评测端渲染器失败时先复核并记录，不能直接按模型错误计分。"
+        }
+      ]
+    },
+    {
+      "id": "O05",
+      "group": "o",
+      "points": 2,
+      "name": "简报写明审批建议与适用限制",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "Word 给出审批建议，交代排除数据和历史回放的适用限制。"
+      },
+      "evidence": [
+        "Word 审批简报"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "给出清楚的审批建议，说明哪些条件下采用主排程、何时启用第三晚减员的备用安排。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "交代未纳入核算的数据及影响估计的适用边界。说明暴露 GPU·分钟来自历史重叠，不将其写成已发生的真实停机或损失。"
+        }
+      ]
+    },
+    {
+      "id": "O06",
+      "group": "o",
+      "points": 3,
+      "name": "简报准确列出主备窗口与实际改动",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "Word 交付主备设备窗口和变更说明，排程与 CSV 一致。"
+      },
+      "evidence": [
+        "Word 审批简报",
+        "提交的维护排程 CSV"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "ratio",
+          "rule": "按主排程的每台设备核对简报中的窗口或等价且无歧义的时间段。"
+        },
+        {
+          "points": 1,
+          "mode": "ratio",
+          "rule": "按备用排程的每台设备核对简报中的窗口或等价且无歧义的时间段。"
+        },
+        {
+          "points": 1,
+          "mode": "binary",
+          "rule": "逐设备核对简报维护窗口明细表的 0/1 变更标记，要求与两套提交排程的窗口 ID 变化相符。对标记为 1 的设备核对原、新窗口。明细表已明确列出变更即可，审批正文可补充说明。"
+        }
+      ],
+      "expected": {
+        "reference_change": {
+          "device_id": "D06",
+          "base": "W09",
+          "fallback": "W13"
+        }
+      }
+    },
+    {
+      "id": "O07",
+      "group": "o",
+      "points": 2,
+      "name": "三份文件关键排程和指标相互一致",
+      "instruction": {
+        "section": "交付文件",
+        "requirement": "指标和排程在三份可打开的文件之间保持一致。"
+      },
+      "evidence": [
+        "工作簿方案级汇总、选中排程与候选影响",
+        "排程 CSV",
+        "Word 方案影响对比"
+      ],
+      "scoring": [
+        {
+          "points": 1,
+          "mode": "ratio",
+          "rule": "逐场景核对 Word 与工作簿汇总的保护作业数、受影响作业数、GPU·分钟及更换窗口设备数，共八个数字。其中更换窗口设备数还须与对应场景 CSV 的变更标记合计一致。此处比较所报数字的一致性，受影响作业和 GPU·分钟的计算正确性在 I06/I07 评定。"
+        },
+        {
+          "points": 0.5,
+          "mode": "ratio",
+          "rule": "按提交的两方案各十台设备核对 Excel 与 CSV 的设备全路径、选中窗口 ID、起止时段及更换窗口标记。本分项使用 CSV 原值，已确认是孤立抄录错误的行仍计为不一致。工作簿可以通过选中标记关联候选表，接受可回查的等价时段。"
+        },
+        {
+          "points": 0.5,
+          "mode": "ratio",
+          "rule": "以同一方案、设备、窗口为键，逐行核对 Excel 和 CSV 的保护作业数、受影响作业数及 GPU·分钟。可从工作簿候选影响表回查，不另要求一张排程表。指标的计算正确性在 I02、I03、O03 处理。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3316 @@
+{
+  "rubric_sha256": "830bab36a954693dac23be3151bc0bdb0d3907657a38dea993ca3a93cea33ded",
+  "criteria_count": 30,
+  "max_points": 100,
+  "known_earned": 59.0,
+  "scored_max_points": 100,
+  "total_score": 59.0,
+  "pending_review": [],
+  "criteria": [
+    {
+      "id": "D01",
+      "name": "逐条核验覆盖原始 worker",
+      "max_points": 3,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D01.1",
+          "max_points": 3,
+          "earned": 0.0,
+          "rule": "比较原始 worker.id 与核验清单的 ID。一个原始 ID 有且只有一条可辨识的核验记录才算命中；漏报、重复和新增 ID 纳入差异。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 23742,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 23742,
+            "differences_sample": [
+              {
+                "key": "28613",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28614",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28615",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28616",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28617",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28618",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28619",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": true,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "name": "准确关联作业并标识优先保护",
+      "max_points": 3,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D02.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "检查集合固定为原始 worker 中 job_name 可精确匹配作业表的记录。按 worker.id 核对归属作业是否正确。本分项只判归属，无法关联时的排除和原因归 D06。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 23183,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 23183,
+            "differences_sample": [
+              {
+                "key": "28613",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28614",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28615",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28616",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28617",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28618",
+                "expected": "dlcar6cqs8mecvlz",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28619",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": "dlc1l3ajnoq4jyuw",
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "D02.2",
+          "max_points": 0.5,
+          "earned": 0.0,
+          "rule": "按源数据中可关联作业的 worker ID 逐条核对逐条核验表的保护标记，仅 priority=9 的作业标为 1。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 23183,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 23183,
+            "differences_sample": [
+              {
+                "key": "28613",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28614",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28615",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28616",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28617",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28618",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28619",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "D02.3",
+          "max_points": 0.5,
+          "earned": 0.0,
+          "rule": "核对命中证据中可关联作业的保护标识。允许由明确的保护名单或可追溯的等价字段体现；同一作业的标识不应随窗口变化。",
+          "location": "impact_audit.xlsx / 命中证据 / 方案、设备全路径、窗口、worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 0,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 0,
+            "differences_sample": []
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "name": "精确关联匿名主机及完整设备路径",
+      "max_points": 3,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D03.1",
+          "max_points": 3,
+          "earned": 0.0,
+          "rule": "检查集合固定为源表可同时关联作业和拓扑的 worker。按 worker.id 对照逐条核验表的 host_ip 和 DSW/PSW/ASW 全路径，两者均与原始数据匹配才计命中。主机为空、拓扑未匹配的排除判断归 D06。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 20040,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 20040,
+            "differences_sample": [
+              {
+                "key": "28613",
+                "expected": [
+                  "G6/P8/S23",
+                  "8bd29cd3a6c570901c5ce23aa0a5557266068fc370e1e4188f056b2fdae24944"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28614",
+                "expected": [
+                  "G6/P8/S18",
+                  "46547b40034dea27dff7a94dee665d3804b7869286d00dcf3508b9a98b4d9bd3"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28615",
+                "expected": [
+                  "G6/P8/S22",
+                  "47b54b963095fc8211922de281e8a1306783c9809d8ca634a44a9004ccc788b9"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28616",
+                "expected": [
+                  "G6/P8/S26",
+                  "7acd990b9db2ffb8b982727c3463746e7c25e0f215c28f82f0f55a49ed0ab793"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28617",
+                "expected": [
+                  "G6/P8/S22",
+                  "2d1f3f74639b00279140135610e4d4cce920754951735fbdba524f6b1b94a5d5"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28618",
+                "expected": [
+                  "G6/P8/S21",
+                  "7e9ddd7d0cdf67d8fd24f9573267ac90ed95772c0575494e6c19157e1d68395d"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28619",
+                "expected": [
+                  "G6/P8/S26",
+                  "7acd990b9db2ffb8b982727c3463746e7c25e0f215c28f82f0f55a49ed0ab793"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": [
+                  "G6/P8/S23",
+                  "8bd29cd3a6c570901c5ce23aa0a5557266068fc370e1e4188f056b2fdae24944"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": [
+                  "G6/P8/S18",
+                  "46547b40034dea27dff7a94dee665d3804b7869286d00dcf3508b9a98b4d9bd3"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": [
+                  "G6/P8/S22",
+                  "47b54b963095fc8211922de281e8a1306783c9809d8ca634a44a9004ccc788b9"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": [
+                  "G6/P8/S21",
+                  "7e9ddd7d0cdf67d8fd24f9573267ac90ed95772c0575494e6c19157e1d68395d"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": [
+                  "G6/P8/S22",
+                  "2d1f3f74639b00279140135610e4d4cce920754951735fbdba524f6b1b94a5d5"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "name": "采用源 worker 运行区间",
+      "max_points": 2,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D04.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "检查集合固定为按题面从原始数据复算应纳入影响核算的 worker.id，不随模型排除或披露哪些记录而变。逐条核对两个源运行端点，接受可回查的等价分钟时间显示。缺失端点、时长非正的排除判断归 D06。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 12579,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 12579,
+            "differences_sample": [
+              {
+                "key": "28619",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": [
+                  "2023-07-15 00:52:00",
+                  "2023-07-15 01:04:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28628",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28629",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28630",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28631",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28632",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28633",
+                "expected": [
+                  "2023-07-15 02:15:00",
+                  "2023-07-15 02:17:00"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "name": "从 RES 读取实际 GPU 数",
+      "max_points": 3,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D05.1",
+          "max_points": 3,
+          "earned": 0.0,
+          "rule": "以参考规则判定纳入的 worker.id 为检查单位，核对 GPU 数与输入中的合法值相同。可从明细字段或关联证据回查。直填统一 GPU 数、用 CPU 值替代或把设备额定卡数当成记录的 GPU 数为错。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 12579,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 12579,
+            "differences_sample": [
+              {
+                "key": "28619",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28628",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28629",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28630",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28631",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28632",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28633",
+                "expected": 8,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "name": "按规定顺序给出首个排除原因",
+      "max_points": 4,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D06.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "对所有原始 worker.id 检查纳入标记和首个适用原因，按题面规定原因码对账。缺项、重复和不存在的额外 ID 计入差异。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 23742,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 23742,
+            "differences_sample": [
+              {
+                "key": "28613",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28614",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28615",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28616",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28617",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28618",
+                "expected": [
+                  "BAD_TIME",
+                  0
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28619",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28620",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28621",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28622",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28623",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "28624",
+                "expected": [
+                  "OK",
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "D06.2",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "对源数据中实际出现的六个排除类别等权：作业无法关联、主机为空、主机无法匹配拓扑、起止缺失或不可解析、时长非正、缺少 GPU 键。每类用首因归对的源记录数除以该类参考记录数。源数据中未作为首因出现的类别不参加平均。",
+          "location": "impact_audit.xlsx / 逐条核验 / worker ID",
+          "evidence": {
+            "categories": {
+              "BAD_TIME": {
+                "expected": 2793,
+                "correct": 0
+              },
+              "NO_GPU_KEY": {
+                "expected": 2614,
+                "correct": 0
+              },
+              "NO_TOPO": {
+                "expected": 2695,
+                "correct": 0
+              },
+              "NO_JOB": {
+                "expected": 559,
+                "correct": 0
+              },
+              "NO_HOST": {
+                "expected": 448,
+                "correct": 0
+              },
+              "NONPOSITIVE_TIME": {
+                "expected": 2054,
+                "correct": 0
+              }
+            }
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "name": "排除原因汇总可与逐条核验对账",
+      "max_points": 2,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "D07.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "逐类别比较首因计数，且汇总可与逐条核验对账。无记录的原因可隐含为零；错误类别、重复汇总增加差异。若呈现纳入数或总数，应准确。",
+          "location": "impact_audit.xlsx / 核验汇总、逐条核验 / 原因码",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 7,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 7,
+            "differences_sample": [
+              {
+                "key": "BAD_TIME",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "OK",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "NO_GPU_KEY",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "NO_TOPO",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "NO_JOB",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "NO_HOST",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              },
+              {
+                "key": "NONPOSITIVE_TIME",
+                "expected": null,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "缺少可核验的前置证据"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I01",
+      "name": "完整列举所有获准设备窗口组合",
+      "max_points": 3,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "I01.1",
+          "max_points": 3,
+          "earned": 0.0,
+          "rule": "用设备全路径、窗口 ID 对齐候选行，核对区间和适用方案。常规候选可共用一行或分别列主备；W13 仅属于 D01、D06、D10 的备用集合。缺项和无资格项计差异。",
+          "location": "impact_audit.xlsx / 候选影响 / 设备全路径、窗口",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 43,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 43,
+            "differences_sample": [
+              {
+                "key": [
+                  "G6/P8/S17",
+                  9
+                ],
+                "expected": [
+                  "D01",
+                  "2023-07-29 20:00:00",
+                  "2023-07-29 21:00:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  10
+                ],
+                "expected": [
+                  "D01",
+                  "2023-07-29 20:30:00",
+                  "2023-07-29 21:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  11
+                ],
+                "expected": [
+                  "D01",
+                  "2023-07-29 21:30:00",
+                  "2023-07-29 22:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  12
+                ],
+                "expected": [
+                  "D01",
+                  "2023-07-29 22:00:00",
+                  "2023-07-29 23:00:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  13
+                ],
+                "expected": [
+                  "D01",
+                  "2023-07-29 23:00:00",
+                  "2023-07-30 00:00:00",
+                  0,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  2
+                ],
+                "expected": [
+                  "D02",
+                  "2023-07-27 20:30:00",
+                  "2023-07-27 21:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  5
+                ],
+                "expected": [
+                  "D02",
+                  "2023-07-28 20:00:00",
+                  "2023-07-28 21:00:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  6
+                ],
+                "expected": [
+                  "D02",
+                  "2023-07-28 20:30:00",
+                  "2023-07-28 21:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  8
+                ],
+                "expected": [
+                  "D02",
+                  "2023-07-28 22:00:00",
+                  "2023-07-28 23:00:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  1
+                ],
+                "expected": [
+                  "D03",
+                  "2023-07-27 20:00:00",
+                  "2023-07-27 21:00:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  3
+                ],
+                "expected": [
+                  "D03",
+                  "2023-07-27 21:30:00",
+                  "2023-07-27 22:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  6
+                ],
+                "expected": [
+                  "D03",
+                  "2023-07-28 20:30:00",
+                  "2023-07-28 21:30:00",
+                  1,
+                  1
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I02",
+      "name": "逐候选窗口准确去重作业",
+      "max_points": 4,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "I02.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "对每个获准的设备窗口键，保护作业去重数与源数据复算相符。",
+          "location": "impact_audit.xlsx / 候选影响 / 设备全路径、窗口",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 43,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 43,
+            "differences_sample": [
+              {
+                "key": [
+                  "G6/P8/S17",
+                  9
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  10
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  11
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  12
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  13
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  2
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  5
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  6
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  8
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  1
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  3
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  6
+                ],
+                "expected": 0,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "I02.2",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "相同检查集合内，全部受影响作业去重数与源数据复算相符。",
+          "location": "impact_audit.xlsx / 候选影响 / 设备全路径、窗口",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 43,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 43,
+            "differences_sample": [
+              {
+                "key": [
+                  "G6/P8/S17",
+                  9
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  10
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  11
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  12
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  13
+                ],
+                "expected": 2,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  2
+                ],
+                "expected": 3,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  5
+                ],
+                "expected": 3,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  6
+                ],
+                "expected": 3,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  8
+                ],
+                "expected": 3,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  1
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  3
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  6
+                ],
+                "expected": 1,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I03",
+      "name": "逐候选窗口正确核算 GPU 暴露量",
+      "max_points": 4,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "I03.1",
+          "max_points": 3,
+          "earned": 0.0,
+          "rule": "对下面 4 个存在不足 60 分钟重叠的组合以外的 39 个获准设备窗口组合，按原始 worker.id 的实际重叠复算整数 GPU·分钟，逐组合核对。",
+          "location": "impact_audit.xlsx / 候选影响 / 设备全路径、窗口",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 39,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 39,
+            "differences_sample": [
+              {
+                "key": [
+                  "G6/P8/S17",
+                  9
+                ],
+                "expected": 960,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  10
+                ],
+                "expected": 960,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  11
+                ],
+                "expected": 960,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  12
+                ],
+                "expected": 960,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S17",
+                  13
+                ],
+                "expected": 960,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  2
+                ],
+                "expected": 900,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  5
+                ],
+                "expected": 1800,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  6
+                ],
+                "expected": 1800,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S18",
+                  8
+                ],
+                "expected": 1800,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  1
+                ],
+                "expected": 480,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  6
+                ],
+                "expected": 480,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P8/S23",
+                  7
+                ],
+                "expected": 480,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "I03.2",
+          "max_points": 1,
+          "earned": 0.0,
+          "rule": "单独核对 D03/W03、D05/W07、D05/W08、D07/W08 的候选暴露总量。四个组合来自题面已要求的局部影响表，可检出一律按满小时计算的错误。此项只核对组合总量，不要求补交未选窗口的逐 worker 证据。",
+          "location": "impact_audit.xlsx / 候选影响 / 设备全路径、窗口",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 4,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 4,
+            "differences_sample": [
+              {
+                "key": [
+                  "G6/P8/S23",
+                  3
+                ],
+                "expected": 16,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P10/S14",
+                  7
+                ],
+                "expected": 1491,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P10/S14",
+                  8
+                ],
+                "expected": 1494,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "G6/P10/S47",
+                  8
+                ],
+                "expected": 2015,
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I04",
+      "name": "选中排程仅列正重叠的 worker",
+      "max_points": 4,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "I04.1",
+          "max_points": 4,
+          "earned": 0.0,
+          "rule": "以提交的可辨识设备窗口复算期望明细。按方案、设备全路径、窗口 ID、worker.id 对齐，检查身份与 job_name。漏命中、重复、只在端点相接或来自错误路径的记录计差异。",
+          "location": "impact_audit.xlsx / 命中证据 / 方案、设备全路径、窗口、worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 54,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 54,
+            "differences_sample": [
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "40543"
+                ],
+                "expected": [
+                  "D01",
+                  "dlc1xa3h1gry59ho"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "47418"
+                ],
+                "expected": [
+                  "D01",
+                  "dlcq5mq6czaa7g5j"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47414"
+                ],
+                "expected": [
+                  "D02",
+                  "dlcq5mq6czaa7g5j"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47417"
+                ],
+                "expected": [
+                  "D02",
+                  "dlcq5mq6czaa7g5j"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47505"
+                ],
+                "expected": [
+                  "D02",
+                  "dlc11jaakksed7jj"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "49790"
+                ],
+                "expected": [
+                  "D02",
+                  "dlc14xaoecfx0k8j"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S23",
+                  7,
+                  "47419"
+                ],
+                "expected": [
+                  "D03",
+                  "dlcq5mq6czaa7g5j"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "34924"
+                ],
+                "expected": [
+                  "D04",
+                  "dlc64nax0zv9gi7f"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "35466"
+                ],
+                "expected": [
+                  "D04",
+                  "dlc7pnimc9jaexjj"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "39488"
+                ],
+                "expected": [
+                  "D04",
+                  "dlc1kq826c4yhosz"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "40324"
+                ],
+                "expected": [
+                  "D05",
+                  "dlc6ua6tgvazqyxi"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "44297"
+                ],
+                "expected": [
+                  "D05",
+                  "dlc62w4jokyct1hw"
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I05",
+      "name": "重叠证据可复算到整数 GPU·分钟",
+      "max_points": 4,
+      "earned": 0.0,
+      "known_earned": 0.0,
+      "pending_points": 0,
+      "status": "零分",
+      "parts": [
+        {
+          "id": "I05.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "对期望命中记录核对源 worker 起止和重叠起点、终点、正重叠分钟。按维护与 worker 区间的 max 起点和 min 终点复算重叠。",
+          "location": "impact_audit.xlsx / 命中证据 / 方案、设备全路径、窗口、worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 54,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 54,
+            "differences_sample": [
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "40543"
+                ],
+                "expected": [
+                  "2023-07-25 14:27:00",
+                  "2023-08-07 03:01:00",
+                  "2023-07-29 20:00:00",
+                  "2023-07-29 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "47418"
+                ],
+                "expected": [
+                  "2023-07-28 07:34:00",
+                  "2023-07-31 01:15:00",
+                  "2023-07-29 20:00:00",
+                  "2023-07-29 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47414"
+                ],
+                "expected": [
+                  "2023-07-28 07:34:00",
+                  "2023-07-31 01:15:00",
+                  "2023-07-28 20:00:00",
+                  "2023-07-28 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47417"
+                ],
+                "expected": [
+                  "2023-07-28 07:34:00",
+                  "2023-07-31 01:15:00",
+                  "2023-07-28 20:00:00",
+                  "2023-07-28 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47505"
+                ],
+                "expected": [
+                  "2023-07-28 07:47:00",
+                  "2023-07-29 01:14:00",
+                  "2023-07-28 20:00:00",
+                  "2023-07-28 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "49790"
+                ],
+                "expected": [
+                  "2023-07-28 11:41:00",
+                  "2023-07-29 02:39:00",
+                  "2023-07-28 20:00:00",
+                  "2023-07-28 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S23",
+                  7,
+                  "47419"
+                ],
+                "expected": [
+                  "2023-07-28 07:34:00",
+                  "2023-07-31 01:15:00",
+                  "2023-07-28 21:30:00",
+                  "2023-07-28 22:30:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "34924"
+                ],
+                "expected": [
+                  "2023-07-22 02:45:00",
+                  "2023-08-05 10:36:00",
+                  "2023-07-27 20:00:00",
+                  "2023-07-27 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "35466"
+                ],
+                "expected": [
+                  "2023-07-22 15:30:00",
+                  "2023-07-31 01:43:00",
+                  "2023-07-27 20:00:00",
+                  "2023-07-27 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "39488"
+                ],
+                "expected": [
+                  "2023-07-25 10:07:00",
+                  "2023-07-29 03:48:00",
+                  "2023-07-27 20:00:00",
+                  "2023-07-27 21:00:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "40324"
+                ],
+                "expected": [
+                  "2023-07-25 14:01:00",
+                  "2023-08-01 06:04:00",
+                  "2023-07-27 21:30:00",
+                  "2023-07-27 22:30:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "44297"
+                ],
+                "expected": [
+                  "2023-07-27 06:52:00",
+                  "2023-07-31 03:26:00",
+                  "2023-07-27 21:30:00",
+                  "2023-07-27 22:30:00",
+                  60
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "I05.2",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "对期望命中记录核对 GPU 数和该 worker 的暴露 GPU·分钟；按原始 GPU 数和真实重叠分钟乘积校验。",
+          "location": "impact_audit.xlsx / 命中证据 / 方案、设备全路径、窗口、worker ID",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 54,
+            "submitted_units": 0,
+            "unverified_schedule_units": 0,
+            "denominator": 54,
+            "differences_sample": [
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "40543"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S17",
+                  9,
+                  "47418"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47414"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47417"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "47505"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S18",
+                  5,
+                  "49790"
+                ],
+                "expected": [
+                  6,
+                  360
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P8/S23",
+                  7,
+                  "47419"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "34924"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "35466"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S13",
+                  1,
+                  "39488"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "40324"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": [
+                  "base",
+                  "G6/P10/S14",
+                  3,
+                  "44297"
+                ],
+                "expected": [
+                  8,
+                  480
+                ],
+                "submitted": [],
+                "submitted_count": 0,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        }
+      ]
+    },
+    {
+      "id": "I06",
+      "name": "整套排程跨窗口按作业去重",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "I06.1",
+          "max_points": 3,
+          "earned": 3.0,
+          "rule": "四个单位为两方案各自的保护作业数与全部受影响作业数。逐个用提交排程求全窗口作业并集，对照实际值；把窗口级人数相加不得算对。",
+          "location": "impact_audit.xlsx / 方案汇总 / 方案",
+          "evidence": {
+            "correct_units": 4,
+            "expected_units": 4,
+            "submitted_units": 4,
+            "unverified_schedule_units": 0,
+            "denominator": 4,
+            "differences_sample": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "I07",
+      "name": "整套排程正确累计 GPU·分钟",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "I07.1",
+          "max_points": 3,
+          "earned": 3.0,
+          "rule": "两个单位为两方案的 GPU·分钟总量。以提交的设备窗口从原始数据复算，按不同命中 worker 的实际重叠累计。将 GPU·分钟与 GPU·小时混为一谈或按作业去重 GPU 用量均为错。",
+          "location": "impact_audit.xlsx / 方案汇总 / 方案",
+          "evidence": {
+            "correct_units": 2,
+            "expected_units": 2,
+            "submitted_units": 2,
+            "unverified_schedule_units": 0,
+            "denominator": 2,
+            "differences_sample": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S01",
+      "name": "主备设备覆盖和窗口资格合规",
+      "max_points": 4,
+      "earned": 4.0,
+      "known_earned": 4.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S01.1",
+          "max_points": 2,
+          "earned": 2,
+          "rule": "主排程覆盖 D01 至 D10 各一次，设备全路径准确，窗口均为该设备的常规候选，起止与完整窗口一致，未晚于 2023-07-29 23:00。仅对 timestamp_reconciliation 确认的孤立抄录使用已确认的时段。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "scenario": "base",
+            "rows": 10,
+            "recognized_devices": [
+              "D01",
+              "D02",
+              "D03",
+              "D04",
+              "D05",
+              "D06",
+              "D07",
+              "D08",
+              "D09",
+              "D10"
+            ],
+            "slot_violations": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "S01.2",
+          "max_points": 2,
+          "earned": 2,
+          "rule": "备用排程覆盖 D01 至 D10 各一次，设备全路径准确，窗口在对应设备的获准集合中，W13 仅为 D01、D06、D10 可用。起止与完整窗口一致，未晚于 2023-07-30 00:00。仅对 timestamp_reconciliation 确认的孤立抄录使用已确认的时段。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "scenario": "fallback",
+            "rows": 10,
+            "recognized_devices": [
+              "D01",
+              "D02",
+              "D03",
+              "D04",
+              "D05",
+              "D06",
+              "D07",
+              "D08",
+              "D09",
+              "D10"
+            ],
+            "slot_violations": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "name": "按实际时段遵守维护班组并发上限",
+      "max_points": 4,
+      "earned": 4.0,
+      "known_earned": 4.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S02.1",
+          "max_points": 2,
+          "earned": 2,
+          "rule": "主排程所有实际时刻并发不超过 2，包含不同窗口 ID 时间重叠的情况。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "scenario": "base",
+            "nightly_peaks_and_limits": {
+              "NIGHT_1_PEAK": [
+                2,
+                2
+              ],
+              "NIGHT_2_PEAK": [
+                2,
+                2
+              ],
+              "NIGHT_3_PEAK": [
+                2,
+                2
+              ]
+            }
+          },
+          "status": "满分"
+        },
+        {
+          "id": "S02.2",
+          "max_points": 2,
+          "earned": 2,
+          "rule": "备用前两晚并发不超过 2，第三晚并发不超过 1，W13 归第三晚。按左闭右开统计。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "scenario": "fallback",
+            "nightly_peaks_and_limits": {
+              "NIGHT_1_PEAK": [
+                2,
+                2
+              ],
+              "NIGHT_2_PEAK": [
+                2,
+                2
+              ],
+              "NIGHT_3_PEAK": [
+                1,
+                1
+              ]
+            }
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "name": "同上联组维护互斥",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S03.1",
+          "max_points": 3,
+          "earned": 3.0,
+          "rule": "两个单位为主、备用排程。每个方案用 DSW/PSW 检查本组所有设备对的实际区间，全部无正重叠才算该单位正确。只比相同窗口 ID 或只比 ASW 短名不能证明通过。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "correct_units": 2,
+            "expected_units": 2,
+            "submitted_units": 2,
+            "unverified_schedule_units": 0,
+            "denominator": 2,
+            "differences_sample": [],
+            "overlapping_devices": {
+              "base": [],
+              "fallback": []
+            }
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "name": "前置设备结束后保留足够间隔",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S04.1",
+          "max_points": 3,
+          "earned": 3.0,
+          "rule": "四个单位为两方案各自的两个依赖。分别用后项实际开始减前项结束，至少 30 分钟即通过，等于 30 分钟有效。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "correct_units": 4,
+            "expected_units": 4,
+            "submitted_units": 4,
+            "unverified_schedule_units": 0,
+            "denominator": 4,
+            "differences_sample": [],
+            "actual_gaps_minutes": [
+              {
+                "key": [
+                  "base",
+                  "D02_D03_GAP"
+                ],
+                "minutes": 30
+              },
+              {
+                "key": [
+                  "base",
+                  "D04_D05_GAP"
+                ],
+                "minutes": 30
+              },
+              {
+                "key": [
+                  "fallback",
+                  "D02_D03_GAP"
+                ],
+                "minutes": 30
+              },
+              {
+                "key": [
+                  "fallback",
+                  "D04_D05_GAP"
+                ],
+                "minutes": 30
+              }
+            ]
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "name": "主排程达到三级业务目标全局最优",
+      "max_points": 7,
+      "earned": 7.0,
+      "known_earned": 7.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S05.1",
+          "max_points": 7,
+          "earned": 7.0,
+          "rule": "仅对可行主排程按正确的最长目标前缀计分。首项未达最优为 0；首项达最优为 3；前两项达最优为 5；三项均达最优为 7。比较复算值，汇报数字恰好等于参考值不构成证据。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "submitted": [
+              3,
+              19,
+              12600
+            ],
+            "expected": [
+              3,
+              19,
+              12600
+            ],
+            "matched_prefix": 3,
+            "feasible": true
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "name": "主排程按窗口字典序完成决胜",
+      "max_points": 2,
+      "earned": 2.0,
+      "known_earned": 2.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S06.1",
+          "max_points": 2,
+          "earned": 2,
+          "rule": "主排程可行且三级目标最优，同时窗口序列与字典序最小解相同。若目标值相同但窗口序列不是规范解，此项为 0，不回扣 S05。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "submitted_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              9,
+              5,
+              1,
+              7,
+              11
+            ],
+            "expected_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              9,
+              5,
+              1,
+              7,
+              11
+            ]
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "name": "备用排程优先最少变更",
+      "max_points": 5,
+      "earned": 5.0,
+      "known_earned": 5.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S07.1",
+          "max_points": 5,
+          "earned": 5,
+          "rule": "仅在提交的两套排程均可行时比较。以其提交的主排程为固定基准，按设备统计改动的窗口 ID。达到该基准最少改动给 5；仅多 1 台给 2；其余 0。主排程的最优性另在 S05/S06 评定。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "base_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              9,
+              5,
+              1,
+              7,
+              11
+            ],
+            "fallback_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              13,
+              5,
+              1,
+              7,
+              11
+            ],
+            "submitted_changes": 1,
+            "minimum_for_submitted_base": 1
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "name": "备用排程影响目标与最终决胜",
+      "max_points": 5,
+      "earned": 5.0,
+      "known_earned": 5.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "S08.1",
+          "max_points": 5,
+          "earned": 5.0,
+          "rule": "仅对可行的主备排程评分。固定提交的主排程，并在具有同样改动数的可行备用方案中比较，以避免重复扣 S07。保护作业最优得 1；前两项最优得 2；前三项最优得 3；前三项最优且字典序最小得 5；首项未达最优为 0。",
+          "location": "maintenance_schedule.csv",
+          "evidence": {
+            "submitted": [
+              3,
+              19,
+              12600
+            ],
+            "expected_at_same_change_count": [
+              3,
+              19,
+              12600
+            ],
+            "submitted_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              13,
+              5,
+              1,
+              7,
+              11
+            ],
+            "tie_break_windows": [
+              9,
+              5,
+              7,
+              1,
+              3,
+              13,
+              5,
+              1,
+              7,
+              11
+            ],
+            "matched_prefix": 3
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "name": "可行性和最优性验证有业务证据",
+      "max_points": 4,
+      "earned": 2.0,
+      "known_earned": 2.0,
+      "pending_points": 0,
+      "status": "部分得分",
+      "parts": [
+        {
+          "id": "S09.1",
+          "max_points": 2,
+          "earned": 0.0,
+          "rule": "两个单位为两方案各自的可复核检查记录。每个方案须给出正确的设备覆盖和窗口资格、实际班组并发峰值、同上联互斥及两个前置间隔。陈述检查结论也须与排程相符。",
+          "location": "impact_audit.xlsx / 约束复核 / 方案、检查键",
+          "evidence": {
+            "correct_units": 0,
+            "expected_units": 2,
+            "submitted_units": 2,
+            "unverified_schedule_units": 0,
+            "denominator": 2,
+            "differences_sample": [
+              {
+                "key": "base",
+                "expected": true,
+                "submitted": [
+                  {
+                    "differences": {},
+                    "extra_keys": [
+                      "LATEST_END"
+                    ]
+                  }
+                ],
+                "submitted_count": 1,
+                "reason": "值、数量或键不符"
+              },
+              {
+                "key": "fallback",
+                "expected": true,
+                "submitted": [
+                  {
+                    "differences": {},
+                    "extra_keys": [
+                      "LATEST_END",
+                      "FIRST_TWO_NIGHTS_FIXED"
+                    ]
+                  }
+                ],
+                "submitted_count": 1,
+                "reason": "值、数量或键不符"
+              }
+            ]
+          },
+          "status": "零分"
+        },
+        {
+          "id": "S09.2",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "核验方法表说明如何从候选窗口和业务约束筛出可行集，并说明方案内作业去重和主备不同的比较顺序。",
+          "location": "impact_audit.xlsx / 核验方法",
+          "evidence": {
+            "submitted_text": {
+              "base": [
+                [
+                  "每设备恰选一个完整60分钟获准窗口；逐对检验同上联正重叠；按所有开始时点求三晚并发峰值；前置结束后至少30分钟；核对完成上限。主排程不含W13。",
+                  "全方案保护job_name并集数 → 全方案job_name并集数 → GPU·分钟之和 → D01至D10窗口ID元组字典序。设备窗口也单独按job_name去重。"
+                ]
+              ],
+              "fallback": [
+                [
+                  "每设备恰选一个完整60分钟获准窗口；逐对检验同上联正重叠；按所有开始时点求三晚并发峰值；前置结束后至少30分钟；核对完成上限。锁定主排程前两晚，W13仅D01/D06/D10可用。",
+                  "换窗设备数 → 全方案保护job_name并集数 → 全方案job_name并集数 → GPU·分钟之和 → D01至D10窗口ID元组字典序。设备窗口也单独按job_name去重。"
+                ]
+              ]
+            }
+          },
+          "review": {
+            "score": 1,
+            "reviewer": "Codex manual evidence review",
+            "evidence": "工作簿核验方法分别说明主备可行性筛选，主排程目标顺序为保护作业、全部作业、GPU分钟，备用先最小化更换设备数，再比较三项影响指标。两方案都说明以设备顺序的窗口ID字典序决胜。",
+            "reason": "提交内容明确覆盖评分标准要求的约束可行性、比较顺序和最终决胜规则。"
+          },
+          "status": "满分"
+        },
+        {
+          "id": "S09.3",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "给出可说明为何无更优解的方法，如全量枚举、可靠剪枝的搜索或精确求解及最优状态。接受等价方法，无须特定软件、代码文件或报告可行组合数量。",
+          "location": "impact_audit.xlsx / 核验方法",
+          "evidence": {
+            "submitted_text": {
+              "base": [
+                [
+                  "穷举全部1,048,576个候选组合，筛得10,752个可行解；逐级最优后剩余解数[3840, 576, 576]；数值目标(3, 19, 12600)，同分576解，以字典序决胜。非启发式，不以局部窗口计数之和替代作业并集。"
+                ]
+              ],
+              "fallback": [
+                [
+                  "穷举全部125个候选组合，筛得24个可行解；逐级最优后剩余解数[2, 2, 2, 2]；数值目标(1, 3, 19, 12600)，同分2解，以字典序决胜。非启发式，不以局部窗口计数之和替代作业并集。"
+                ]
+              ]
+            }
+          },
+          "review": {
+            "score": 1,
+            "reviewer": "Codex manual evidence review",
+            "evidence": "核验方法记录主排程穷举1,048,576个组合、10,752个可行解及逐级目标筛选；备用穷举125个组合、24个可行解并按四级目标筛选，均记录最优并列数和字典序决胜。",
+            "reason": "完整有限组合枚举及逐级筛选数据足以说明配置候选范围内的全局最优性验证。"
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O01",
+      "name": "交付三种可打开的指定文件",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O01.1",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "outputs/impact_audit.xlsx 路径和扩展名准确，工作簿可打开并具备题面规定的核验表与必需表头。结构错误单独记录，可人工定位的业务内容仍按对应考点评分。",
+          "location": "outputs/impact_audit.xlsx",
+          "evidence": {
+            "missing_tables_or_headers": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O01.2",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "outputs/maintenance_schedule.csv 路径和扩展名准确，能识别为可读 CSV。",
+          "location": "outputs/maintenance_schedule.csv",
+          "evidence": {
+            "readable": true,
+            "header": [
+              "scenario",
+              "device_id",
+              "dsw",
+              "psw",
+              "asw",
+              "window_id",
+              "start_time",
+              "end_time",
+              "protected_jobs",
+              "affected_jobs",
+              "gpu_minutes",
+              "changed_from_base"
+            ]
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O01.3",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "outputs/change_brief.docx 路径和扩展名准确，可作为 Word 文档打开，且具备题面列明的标题和两张核验表。指标表使用配置指定的中文方案标签。可定位的业务内容仍按对应考点评分。",
+          "location": "outputs/change_brief.docx",
+          "evidence": {
+            "missing_tables": [],
+            "missing_headings": [],
+            "invalid_scenario_labels": [],
+            "malformed_rows": {}
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O02",
+      "name": "排程 CSV 满足机器读取合同",
+      "max_points": 4,
+      "earned": 4.0,
+      "known_earned": 4.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O02.1",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "按 UTF-8 解码成功且表头字段拼写和顺序与 task.toml 一致。接受 UTF-8 BOM。",
+          "location": "maintenance_schedule.csv / 表头",
+          "evidence": {
+            "expected": [
+              "scenario",
+              "device_id",
+              "dsw",
+              "psw",
+              "asw",
+              "window_id",
+              "start_time",
+              "end_time",
+              "protected_jobs",
+              "affected_jobs",
+              "gpu_minutes",
+              "changed_from_base"
+            ],
+            "submitted": [
+              "scenario",
+              "device_id",
+              "dsw",
+              "psw",
+              "asw",
+              "window_id",
+              "start_time",
+              "end_time",
+              "protected_jobs",
+              "affected_jobs",
+              "gpu_minutes",
+              "changed_from_base"
+            ]
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O02.2",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "表头外恰好 20 条数据行，字段数量与表头一致。",
+          "location": "maintenance_schedule.csv / 数据行",
+          "evidence": {
+            "expected_rows": 20,
+            "submitted_rows": 20,
+            "irregular_rows": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O02.3",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "base 在 fallback 前，场景标签符合题面，各按设备编号升序。",
+          "location": "maintenance_schedule.csv / scenario、device_id",
+          "evidence": {
+            "submitted_key_count": 20,
+            "mismatches": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O02.4",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "所有 start_time 和 end_time 都是有效日期时间且严格为 YYYY-MM-DD HH:MM。该项只查格式。窗口资格见 S01，按确认规则识别出的孤立抄录在 O07 核对。",
+          "location": "maintenance_schedule.csv / start_time、end_time",
+          "evidence": {
+            "timestamp_columns_found": true,
+            "invalid_rows": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O03",
+      "name": "排程 CSV 写入正确窗口指标及变更标记",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O03.1",
+          "max_points": 2,
+          "earned": 2.0,
+          "rule": "对每行可辨识的方案、设备、窗口，核对 protected_jobs、affected_jobs、gpu_minutes 三个局部值，每行三值全对才计命中。",
+          "location": "maintenance_schedule.csv / 设备窗口影响指标",
+          "evidence": {
+            "correct_units": 20,
+            "expected_units": 20,
+            "submitted_units": 20,
+            "unverified_schedule_units": 0,
+            "denominator": 20,
+            "differences_sample": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O03.2",
+          "max_points": 1,
+          "earned": 1.0,
+          "rule": "每个排程行检查 changed_from_base。主排程为 0，备用按同设备相对主排程的窗口 ID 变化给 0 或 1。",
+          "location": "maintenance_schedule.csv / changed_from_base",
+          "evidence": {
+            "correct_units": 20,
+            "expected_units": 20,
+            "submitted_units": 20,
+            "unverified_schedule_units": 0,
+            "denominator": 20,
+            "differences_sample": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O04",
+      "name": "审批简报不超过两页",
+      "max_points": 1,
+      "earned": 1.0,
+      "known_earned": 1.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O04.1",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "可读的 Word 正文包含在最多两页内。评测端渲染器失败时先复核并记录，不能直接按模型错误计分。",
+          "location": "change_brief.docx",
+          "evidence": {
+            "rendered_pdf": "C:\\Users\\cc\\Desktop\\GPT-6 Astra\\run_evidence\\change_brief.pdf",
+            "pages": 2
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O05",
+      "name": "简报写明审批建议与适用限制",
+      "max_points": 2,
+      "earned": 2.0,
+      "known_earned": 2.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O05.1",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "给出清楚的审批建议，说明哪些条件下采用主排程、何时启用第三晚减员的备用安排。",
+          "location": "change_brief.docx / 审批建议",
+          "evidence": {
+            "submitted_text": "建议批准主排程，并预授权第三晚减员时启用备用排程。两方案覆盖全部10台交换机，均满足获准窗口、同上联互斥及前置间隔要求。第三晚若仅有一个班组，将D06从W09改至W13；前两晚及其他设备窗口不变。执行前须确认受影响保护作业的处置。"
+          },
+          "review": {
+            "score": 1,
+            "reviewer": "Codex manual evidence review",
+            "evidence": "简报建议批准主排程，并预授权第三晚减员时切换备用排程；明确说明仅有一个班组时将D06从W09改至W13。",
+            "reason": "审批建议清楚指出主方案和备用方案适用条件及实际改动。"
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O05.2",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "交代未纳入核算的数据及影响估计的适用边界。说明暴露 GPU·分钟来自历史重叠，不将其写成已发生的真实停机或损失。",
+          "location": "change_brief.docx / 数据覆盖与执行复核",
+          "evidence": {
+            "submitted_text": "数据覆盖5,180条作业、23,742条worker及847条拓扑。作业名、worker ID和拓扑IP在各自源表中均唯一。按job_name关联作业、host_ip=ip精确关联拓扑；保留每个worker ID，priority=9为保护作业。\n可核算worker为12,579条（52.98%），排除11,163条。每条仅按配置顺序记录第一个失败原因：作业无法关联559条、主机为空448条、拓扑无法匹配2,695条、起止时间缺失或不可解析2,793条、时长非正2,054条、缺少GPU键2,614条。本次无BAD_RES或BAD_GPU首因记录；这不代表被前序原因排除的记录没有资源字段问题。\nRES按JSON对象解析，GPU接受正整数或十进制数字串。计算采用源数据无时区的分钟时间轴和左闭右开区间，仅累计同设备正重叠分钟×GPU数。各设备窗口及整套方案分别按job_name去重；D09的W07零命中仍保留。逐worker命中明细和全部排除记录见审计工作簿。\n可行性与全局最优性\n主排程完整穷举4¹⁰＝1,048,576个组合，按上联、班组峰值、前置间隔和截止时间筛得10,752个可行解。依次最小化保护作业数、全部作业数和GPU·分钟，逐级剩余3,840、576、576个解，最终按D01至D10窗口ID元组字典序决胜，得到（3，19，12,600）。\n锁定主排程后，备用保持前两晚不变，穷举第三晚3台设备各5个候选的125个组合，筛得24个可行解。先最小化换窗设备数，再按上述三项影响比较；四级筛选后均剩2个解，按字典序选定仅D06改窗的方案，得到（1，3，19，12,600）。完整有限空间枚举保证配置范围内的全局最优。\n执行前复核与历史局限\n值班主管在每晚开工前确认班组人数、设备及上联映射、实时作业和保护级别；第三晚减员时确认D06的23:00跨日窗口获准。每台设备完整维护60分钟，同上联不得重叠，D03和D05须在各自前置设备结束后再等待至少30分钟。记录实际起止，延误时重新检查后续窗口和完成上限。\n历史回放只衡量已知worker的暴露，不能等同实际中断、重跑成本或未来影响预测。排除记录可能低估风险；历史拓扑、作业迁移、重试、运行时长及保护级别变化均可能改变结论。零命中不表示现场无风险，未建模的业务依赖和维护超时需在执行前复核。"
+          },
+          "review": {
+            "score": 1,
+            "reviewer": "Codex manual evidence review",
+            "evidence": "简报披露11,163条worker排除及各首因数量，说明GPU分钟是历史运行区间与维护窗口重叠暴露，不能等同真实中断或损失，并指出历史拓扑、迁移、重试、时长、保护级别和未建模依赖等局限。",
+            "reason": "简报涵盖未纳入记录、历史暴露口径与影响估计的适用边界。"
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O06",
+      "name": "简报准确列出主备窗口与实际改动",
+      "max_points": 3,
+      "earned": 3.0,
+      "known_earned": 3.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O06.1",
+          "max_points": 1,
+          "earned": 1.0,
+          "rule": "按主排程的每台设备核对简报中的窗口或等价且无歧义的时间段。",
+          "location": "change_brief.docx / 维护窗口明细 / base",
+          "evidence": {
+            "correct_units": 10,
+            "expected_units": 10,
+            "submitted_units": 10,
+            "unverified_schedule_units": 0,
+            "denominator": 10,
+            "differences_sample": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O06.2",
+          "max_points": 1,
+          "earned": 1.0,
+          "rule": "按备用排程的每台设备核对简报中的窗口或等价且无歧义的时间段。",
+          "location": "change_brief.docx / 维护窗口明细 / fallback",
+          "evidence": {
+            "correct_units": 10,
+            "expected_units": 10,
+            "submitted_units": 10,
+            "unverified_schedule_units": 0,
+            "denominator": 10,
+            "differences_sample": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O06.3",
+          "max_points": 1,
+          "earned": 1,
+          "rule": "逐设备核对简报维护窗口明细表的 0/1 变更标记，要求与两套提交排程的窗口 ID 变化相符。对标记为 1 的设备核对原、新窗口。明细表已明确列出变更即可，审批正文可补充说明。",
+          "location": "change_brief.docx / 维护窗口明细 / 变更、主排程、备用排程",
+          "evidence": {
+            "differences": [],
+            "extra_devices": []
+          },
+          "status": "满分"
+        }
+      ]
+    },
+    {
+      "id": "O07",
+      "name": "三份文件关键排程和指标相互一致",
+      "max_points": 2,
+      "earned": 2.0,
+      "known_earned": 2.0,
+      "pending_points": 0,
+      "status": "满分",
+      "parts": [
+        {
+          "id": "O07.1",
+          "max_points": 1,
+          "earned": 1.0,
+          "rule": "逐场景核对 Word 与工作簿汇总的保护作业数、受影响作业数、GPU·分钟及更换窗口设备数，共八个数字。其中更换窗口设备数还须与对应场景 CSV 的变更标记合计一致。此处比较所报数字的一致性，受影响作业和 GPU·分钟的计算正确性在 I06/I07 评定。",
+          "location": "impact_audit.xlsx / 方案汇总 ↔ change_brief.docx / 主备方案影响 ↔ CSV 变更合计",
+          "evidence": {
+            "correct_units": 8,
+            "expected_units": 8,
+            "submitted_units": 8,
+            "unverified_schedule_units": 0,
+            "denominator": 8,
+            "differences_sample": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O07.2",
+          "max_points": 0.5,
+          "earned": 0.5,
+          "rule": "按提交的两方案各十台设备核对 Excel 与 CSV 的设备全路径、选中窗口 ID、起止时段及更换窗口标记。本分项使用 CSV 原值，已确认是孤立抄录错误的行仍计为不一致。工作簿可以通过选中标记关联候选表，接受可回查的等价时段。",
+          "location": "maintenance_schedule.csv ↔ impact_audit.xlsx / 排程明细 / 方案、设备",
+          "evidence": {
+            "correct_units": 20,
+            "expected_units": 20,
+            "submitted_units": 20,
+            "unverified_schedule_units": 0,
+            "denominator": 20,
+            "differences_sample": []
+          },
+          "status": "满分"
+        },
+        {
+          "id": "O07.3",
+          "max_points": 0.5,
+          "earned": 0.5,
+          "rule": "以同一方案、设备、窗口为键，逐行核对 Excel 和 CSV 的保护作业数、受影响作业数及 GPU·分钟。可从工作簿候选影响表回查，不另要求一张排程表。指标的计算正确性在 I02、I03、O03 处理。",
+          "location": "maintenance_schedule.csv ↔ impact_audit.xlsx / 排程明细 / 方案、设备",
+          "evidence": {
+            "correct_units": 20,
+            "expected_units": 20,
+            "submitted_units": 20,
+            "unverified_schedule_units": 0,
+            "denominator": 20,
+            "differences_sample": []
+          },
+          "status": "满分"
+        }
+      ]
+    }
+  ],
+  "read_issues": {},
+  "schedule_evidence": "maintenance_schedule.csv",
+  "timestamp_reconciliations": [],
+  "submission_directory": "C:\\Users\\cc\\Desktop\\GPT-6 Astra\\outputs"
+}
